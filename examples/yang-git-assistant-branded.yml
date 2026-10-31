@@ -34,7 +34,7 @@ jobs:
           private-key: ${{ secrets.YANG_GIT_ASSISTANT_APP_PRIVATE_KEY }}
 
       - name: yang-git-assistant
-        uses: YangYang-Research/yang-git-assistant@v0.1.1
+        uses: YangYang-Research/yang-git-assistant@v0.3.0
         with:
           PROVIDER: yangyang
           API_KEY: ${{ secrets.YANG_API_TOKEN }}

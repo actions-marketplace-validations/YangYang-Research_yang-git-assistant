@@ -75,7 +75,7 @@ Provider base URLs are hardcoded in the action:
 | `google` | `https://generativelanguage.googleapis.com/v1beta` | [Models](https://ai.google.dev/gemini-api/docs/models) |
 | `nvidia` | `https://integrate.api.nvidia.com/v1` | [Models](https://build.nvidia.com/models) |
 | `openrouter` | `https://openrouter.ai/api/v1` | [Models](https://openrouter.ai/models) |
-| `yangyang` | `https://inference.yyng.icu/v1/agents` (`agent=yang-git-assistant`) | `auto` |
+| `yangyang` | `https://ai.yyng.icu/v1/agents` (`agent=yang-git-assistant`) | `auto` |
 
 ## 🔐 Required secrets
 
@@ -117,13 +117,15 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: yang-git-assistant
-        uses: YangYang-Research/yang-git-assistant@v0.1.1
+        uses: YangYang-Research/yang-git-assistant@v0.3.0
         with:
           PROVIDER: yangyang
           API_KEY: ${{ secrets.YANG_API_TOKEN }}
           MODEL_NAME: auto
           GITHUB_TOKEN: ${{ github.token }}
 ```
+
+YangYang uses Studio Token-Base64 against AI Gateway (`ai.yyng.icu`).
 
 OpenAI example:
 

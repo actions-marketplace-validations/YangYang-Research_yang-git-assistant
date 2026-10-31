@@ -39297,7 +39297,11 @@ const PROVIDERS = {
   },
   nvidia: {baseUrl: 'https://integrate.api.nvidia.com/v1', protocol: 'openai'},
   openrouter: {baseUrl: 'https://openrouter.ai/api/v1', protocol: 'openai'},
-  yangyang: {baseUrl: 'https://inference.yyng.icu/v1', protocol: 'openai'}
+  yangyang: {
+    // Public AI Gateway (YAG). inference.yyng.icu is retired.
+    baseUrl: 'https://ai.yyng.icu/v1',
+    protocol: 'openai'
+  }
 };
 
 const RETRYABLE_STATUS_CODES = new Set([408, 409, 425, 429]);
@@ -39331,10 +39335,12 @@ function createOpenAIRequest(config, {model, temperature, maxTokens, messages, a
     'content-type': 'application/json',
     'user-agent': 'github-actions/yang-git-assistant'
   };
-  if (config.apiKey && config.name === 'yangyang') {
-    headers['x-yang-api-token'] = config.apiKey;
-  } else if (config.apiKey) {
+  if (config.apiKey) {
+    // YAG accepts Bearer, x-api-key, or x-yang-api-token (Token-Base64).
     headers.authorization = `Bearer ${config.apiKey}`;
+    if (config.name === 'yangyang') {
+      headers['x-yang-api-token'] = config.apiKey;
+    }
   }
   if (config.name === 'openrouter') {
     headers['x-openrouter-title'] = 'Yang Git Assistant';
